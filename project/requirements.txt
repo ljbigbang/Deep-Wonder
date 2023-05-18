@@ -40,7 +40,6 @@ networkx==2.8.8
 numba==0.56.4
 numpy==1.23.5
 onnxruntime==1.13.1
-opencv-python==4.7.0.72
 opencv-python-headless==4.6.0.66
 packaging==21.3
 pandas==1.5.1
