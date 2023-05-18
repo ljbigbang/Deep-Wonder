@@ -77,7 +77,6 @@ def render_svg(svg):
 # st.sidebar.write("## Upload and download :gear:")
 # st.write("## Hello")
 st.set_page_config(layout="wide", page_title="Deep Wonder")
-page = 1
 # st.write("## Remove background from your image")
 # st.write(
     # ":dog: Try uploading an image to watch the background magically removed. Full quality images can be downloaded from the sidebar. This code is open source and available [here](https://github.com/tyler-simons/BackgroundRemoval) on GitHub. Special thanks to the [rembg library](https://github.com/danielgatis/rembg) :grin:"
@@ -92,9 +91,9 @@ page = 1
 #     return byte_im
 with st.container():
     col1, col2, col3, col4 = st.columns([1,2.5,0.65,5.35])
-    LOGO = Image.open("./images/LOGO-new.png")
-    GitHub = Image.open("./images/GitHub.png")
-    arxiv = Image.open("./images/arxiv.png")
+    LOGO = Image.open("images/LOGO-new.png")
+#     GitHub = Image.open("./images/GitHub.png")
+#     arxiv = Image.open("./images/arxiv.png")
     col1.image(LOGO,width=120)
     col2.title("Deep Wonder")
     # col3.image(GitHub,width=75)
