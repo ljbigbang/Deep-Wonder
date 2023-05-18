@@ -100,13 +100,12 @@ with st.container():
     # col4.image(arxiv,width=100)
 st.markdown("\n")
 st.markdown("\n")
-if page == 1:
-    with st.container():
-        col5, col6 = st.columns([1,1])
-        col5.video("https://www.youtube.com/watch?v=OMkEVX23BdM")
-        col6.header("Upload Data")
-        # col6.markdown("\n")
-        my_upload = col6.file_uploader("Upload a file only tiff",type=["tiff"])
+with st.container():
+    col5, col6 = st.columns([1,1])
+    col5.video("https://www.youtube.com/watch?v=OMkEVX23BdM")
+    col6.header("Upload Data")
+    # col6.markdown("\n")
+    my_upload = col6.file_uploader("Upload a file only tiff",type=["tiff"])
 
     # with st.container():
     #     if my_upload is None:
@@ -160,43 +159,43 @@ if page == 1:
     #         # plt.tight_layout()
     #         col7.pyplot(fig)
     #         plt.close(fig)
-    with st.container():
-        st.markdown("\n")
-        st.write("## Options")
-        devices = image_select(label="Choose in four devices:",images=["./images/miniscope v3.png","./images/miniscope v4.png","./images/Widefield.png","./images/Macroscope.png"],captions=["Miniscope v3","Miniscope v4","Widefield microscope","Macroscope"],use_container_width=False,return_value="index")
-        animals = image_select(label="Choose in three animals:",images=["./images/mouse.png","./images/zebrafish.png","./images/drosophila.png"],captions=["Mouse","Zebrafish","Drosophila"],use_container_width=False,return_value="index")
-        categories = image_select(label="Choose in two categories:",images=["./images/aav transduce.png","./images/transgenetic.png"],captions=["AAV transduce","Transgenetic"],use_container_width=False,return_value="index")
-        # st.write(devices)
-        # st.write(animals)
-        # st.write(categories)
-        if my_upload is None:
-            st.write("## Examples")
-            if devices==0 and animals==0 and categories==0:
-                index = image_select(label="input",images=["./web_demo/1/input.gif","./web_demo/2/input.gif","./web_demo/3/input.gif"],use_container_width=False,return_value="index")
-                # st.write(index)
-                st.markdown("## Process & Result")
-                with st.container():
-                    col_input, col_network_processed, col_2p_ground_truth = st.columns([1, 1, 1])
-                    download_gif(f"./web_demo/{index+1}/input.gif", col_input, "input")
-                    download_gif(f"./web_demo/{index+1}/network_processed.gif",col_network_processed,"network_processed")
-                    download_gif(f"./web_demo/{index+1}/2p_ground_truth.gif",col_2p_ground_truth,"2p_ground_truth")
-                with st.container():
-                    image_seg = Image.open(f"./web_demo/{index+1}/patch_seg.tiff")
-                    image_sig = render_svg(read_svg(f"./web_demo/{index+1}/patch_sig.svg"))
-                    # image_sig = cv2.imread("./web_demo/macroscope/patch_sig.svg")
-                    col_seg, col_sig = st.columns([1, 1])
-                    col_seg.write("Segmentation Spatial Mask")
-                    col_seg.image(image_seg, width=600)
-                    col_sig.write("Segmentation Temporal Mask")
-                    col_sig.markdown(image_sig, unsafe_allow_html=True)
-        else:
-            st.write("## Your Data")
-            data = tifread(my_upload)
-            gif_path = gif_create(data,"my_data")
-            index = image_select(label="input",
-                                 images=["my_data.gif"],
-                                 use_container_width=False, return_value="index")
-            download_gif(f"my_data.gif",st, "input")
+with st.container():
+    st.markdown("\n")
+    st.write("## Options")
+    devices = image_select(label="Choose in four devices:",images=["./images/miniscope v3.png","./images/miniscope v4.png","./images/Widefield.png","./images/Macroscope.png"],captions=["Miniscope v3","Miniscope v4","Widefield microscope","Macroscope"],use_container_width=False,return_value="index")
+    animals = image_select(label="Choose in three animals:",images=["./images/mouse.png","./images/zebrafish.png","./images/drosophila.png"],captions=["Mouse","Zebrafish","Drosophila"],use_container_width=False,return_value="index")
+    categories = image_select(label="Choose in two categories:",images=["./images/aav transduce.png","./images/transgenetic.png"],captions=["AAV transduce","Transgenetic"],use_container_width=False,return_value="index")
+    # st.write(devices)
+    # st.write(animals)
+    # st.write(categories)
+    if my_upload is None:
+        st.write("## Examples")
+        if devices==0 and animals==0 and categories==0:
+            index = image_select(label="input",images=["./web_demo/1/input.gif","./web_demo/2/input.gif","./web_demo/3/input.gif"],use_container_width=False,return_value="index")
+            # st.write(index)
+            st.markdown("## Process & Result")
+            with st.container():
+                col_input, col_network_processed, col_2p_ground_truth = st.columns([1, 1, 1])
+                download_gif(f"./web_demo/{index+1}/input.gif", col_input, "input")
+                download_gif(f"./web_demo/{index+1}/network_processed.gif",col_network_processed,"network_processed")
+                download_gif(f"./web_demo/{index+1}/2p_ground_truth.gif",col_2p_ground_truth,"2p_ground_truth")
+            with st.container():
+                image_seg = Image.open(f"./web_demo/{index+1}/patch_seg.tiff")
+                image_sig = render_svg(read_svg(f"./web_demo/{index+1}/patch_sig.svg"))
+                # image_sig = cv2.imread("./web_demo/macroscope/patch_sig.svg")
+                col_seg, col_sig = st.columns([1, 1])
+                col_seg.write("Segmentation Spatial Mask")
+                col_seg.image(image_seg, width=600)
+                col_sig.write("Segmentation Temporal Mask")
+                col_sig.markdown(image_sig, unsafe_allow_html=True)
+    else:
+        st.write("## Your Data")
+        data = tifread(my_upload)
+        gif_path = gif_create(data,"my_data")
+        index = image_select(label="input",
+                             images=["my_data.gif"],
+                             use_container_width=False, return_value="index")
+        download_gif(f"my_data.gif",st, "input")
 
         # devices = Image.open("./images/devices.png")
         # animals = Image.open("./images/animals.png")
