@@ -1,15 +1,11 @@
 import streamlit as st
 import numpy as np
 from PIL import Image
-import tifffile as tif
-import matplotlib.pyplot as plt
 import cv2
 import re
 import base64
 import imageio.v2 as imageio
 from streamlit_image_select import image_select
-from libtiff import TIFF
-from io import BytesIO
 
 def tifread(path):
     img = Image.open(path)
