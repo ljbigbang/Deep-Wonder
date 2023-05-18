@@ -91,10 +91,10 @@ st.set_page_config(layout="wide", page_title="Deep Wonder")
 #     return byte_im
 with st.container():
     col1, col2, col3, col4 = st.columns([1,2.5,0.65,5.35])
-    LOGO = Image.open("images/LOGO-new.png")
+#     LOGO = Image.open("images/LOGO-new.png")
 #     GitHub = Image.open("./images/GitHub.png")
 #     arxiv = Image.open("./images/arxiv.png")
-    col1.image(LOGO,width=120)
+#     col1.image(LOGO,width=120)
     col2.title("Deep Wonder")
     # col3.image(GitHub,width=75)
     # col4.image(arxiv,width=100)
