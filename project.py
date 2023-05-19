@@ -106,6 +106,6 @@ with st.container():
         data = tifread(my_upload)
         gif_path = gif_create(data)
         index = image_select(label="input",
-                                 images=["my_data.gif"],
+                                 images=["input3.gif"],
                                  use_container_width=False, return_value="index")
         download_gif("my_data.gif",st, "input")
