@@ -6,7 +6,6 @@ import re
 import base64
 import imageio.v2 as imageio
 from streamlit_image_select import image_select
-
 def tifread(path):
     img = Image.open(path)
     images = []
@@ -14,7 +13,23 @@ def tifread(path):
         img.seek(i)
         images.append(np.array(img))
     return np.array(images)
-
+def joint_img(path1,path2,path3):
+    img1 = Image.open(path1)
+    img2 = Image.open(path2)
+    img3 = Image.open(path3)
+    images = []
+    for i in range(img1.n_frames):
+        img1.seek(i)
+        img2.seek(i)
+        img3.seek(i)
+        new_image = Image.new(img1.mode,(img1.size[0]*3,img1.size[1]))
+        loc1,loc2,loc3 = (0,0),(img1.size[0],0),(img1.size[0]*2,0)
+        new_image.paste(img1,loc1)
+        new_image.paste(img2,loc2)
+        new_image.paste(img3,loc3)
+        # print(new_image)
+        images.append(np.array(new_image))
+    return np.array(images)
 def gif_create(data):
     tif_list = []
     for i in range(0, data.shape[0] - 1):
@@ -23,7 +38,22 @@ def gif_create(data):
         tif_list.append(img)
     imageio.mimsave("my_data.gif",tif_list,'GIF',fps=5,loop=0)
     return "my_data.gif"
+def video_create(data,name):
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    videowrite = cv2.VideoWriter(f"{name}.mp4",fourcc,10,(data.shape[2],data.shape[1]))
+    for i in range(0, data.shape[0] - 1):
+        cv2.imwrite("storage.tif", data[i])
+        img = cv2.imread("storage.tif")
+        videowrite.write(img)
+    videowrite.release()
+    video_path = f"{name}.mp4"
+    return video_path
 
+def gif_show(gif_path):
+    index = image_select(label="input",
+                 images=[gif_path],
+                 use_container_width=False, return_value="index")
+    return index
 def download_gif(gif_path,col,name):
     with open(gif_path,'rb') as f:
       contents = f.read()
@@ -89,23 +119,26 @@ with st.container():
             index = image_select(label="input",images=["input1.gif","input2.gif","input3.gif"],use_container_width=False,return_value="index")
             st.markdown("## Process & Result")
             with st.container():
-                col_input, col_network_processed, col_2p_ground_truth = st.columns([1, 1, 1])
-                download_gif(f"input{index+1}.gif", col_input, "input")
-                download_gif(f"network_processed{index+1}.gif",col_network_processed,"network_processed")
-                download_gif(f"2p_ground_truth{index+1}.gif",col_2p_ground_truth,"2p_ground_truth")
+                st.markdown("##### input & network processed & 2p ground truth")
+                # col_input, col_network_processed, col_2p_ground_truth = st.columns([1, 1, 1])
+                st.video(open(f"video{index+1}.mp4","rb").read())
+                # download_gif(f"input{index+1}.gif", col_input, "input")
+                # download_gif(f"network_processed{index+1}.gif",col_network_processed,"network_processed")
+                # download_gif(f"2p_ground_truth{index+1}.gif",col_2p_ground_truth,"2p_ground_truth")
             with st.container():
                 image_seg = Image.open(f"patch_seg{index+1}.tiff")
                 image_sig = render_svg(read_svg(f"patch_sig{index+1}.svg"))
                 col_seg, col_sig = st.columns([1, 1])
-                col_seg.write("Segmentation Spatial Mask")
+                col_seg.markdown("##### Segmentation Spatial Mask")
                 col_seg.image(image_seg, width=600)
-                col_sig.write("Segmentation Temporal Mask")
+                col_sig.markdown("##### Segmentation Temporal Mask")
                 col_sig.markdown(image_sig, unsafe_allow_html=True)
     else:
         st.write("## Your Data")
         data = tifread(my_upload)
         gif_path = gif_create(data)
-#         index = image_select(label="input",
-#                                  images=["my_data.gif"],
-#                                  use_container_width=False, return_value="index")
-        download_gif(gif_path,st,"input")
+        video_create(data,"my_data")
+        col_my_data1,col_my_data2 = st.columns([1,1])
+        col_my_data1.video(open("my_data.mp4","rb").read())
+        # index = gif_show(gif_path)
+        # download_gif(gif_path,st, "input")
