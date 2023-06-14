@@ -95,7 +95,7 @@ def render_svg(svg):
     html = (
         r"""
         <div align="center">
-        <img src="data:image/svg+xml;base64,%s" alt="SVG Image" style="width:18em; float:left;"/>
+        <img src="data:image/svg+xml;base64,%s" alt="SVG Image" style="width:18vw; float:left;"/>
         </div>
         """
         % b64
@@ -120,9 +120,9 @@ def page_one():
         """,unsafe_allow_html=True)
         col2.image(LOGO, use_column_width=True)
         # col2.markdown(f"<div class='center'><img src='{LOGO}'></div>",unsafe_allow_html=True)
-        col2.markdown("<h2 style='text-align: center;font-size: 4em;'>DeepDefinite</h2>",unsafe_allow_html=True)
-        col4.markdown("<h2 style='text-align: center;font-size: 4em;'>Introduction</h2>",unsafe_allow_html=True)
-        col4.markdown("<p style='font-size: 2.2em;'>DeepDefinite, a Deep Learning-based Widefield Neuron Finder with Self-supervi-<br>sion, is a pioneering tool for eliminating fluctuating background in one-photon<br>calcium imaging via self-supervised learning. This website offers the facility to<br>upload your captured one-photon images for swift online processing or to peruse<br>our preloaded demo datasets. Furthermore, DeepDefinite can be conveniently<br>downloaded as a Fiji plugin, thereby circumventing the need for a Python environ-<br>ment, or the complete software can be operated directly from our GitHub reposito-<br>ry: https://github.com/songxf1011/SSFA.</p>",unsafe_allow_html=True)
+        col2.markdown("<p style='text-align: center;font-size:3vw;'>DeepDefinite</p>",unsafe_allow_html=True)
+        col4.markdown("<p style='text-align: center;font-size:3vw;'>Introduction</p>",unsafe_allow_html=True)
+        col4.markdown("<p style='font-size:1.4vw;'>DeepDefinite, a Deep Learning-based Widefield Neuron Finder with Self-supervi-<br>sion, is a pioneering tool for eliminating fluctuating background in one-photon<br>calcium imaging via self-supervised learning. This website offers the facility to<br>upload your captured one-photon images for swift online processing or to peruse<br>our preloaded demo datasets. Furthermore, DeepDefinite can be conveniently<br>downloaded as a Fiji plugin, thereby circumventing the need for a Python environ-<br>ment, or the complete software can be operated directly from our GitHub reposito-<br>ry: https://github.com/songxf1011/SSFA.</p>",unsafe_allow_html=True)
     st.markdown("\n")
     st.markdown("\n")
     # 网页视频与上传文件
@@ -137,7 +137,7 @@ def page_one():
             gif_create(data)
             my_data = Image.open("my_data.gif")
             with col6:
-                col6.markdown("<h5 style='font-weight:bolder;'>Describe your data such that we pair the best model for you!</h5>",unsafe_allow_html=True)
+                col6.markdown("<p style='font-weight:bolder;font-size:1.4vw;'>Describe your data such that we pair the best model for you!</p>",unsafe_allow_html=True)
                 col6_parameter,col6_data = st.columns([2,1])
                 pixel_size = col6_parameter.text_input("Pixel size:")
                 neuron_diameter = col6_parameter.text_input("Neuron diameter in pixel:")
@@ -151,7 +151,7 @@ def page_one():
         st.markdown("\n")
         col_option,col_example = st.columns([4,3])
         with col_option:
-            st.markdown("<h4>Options</h4>",unsafe_allow_html=True)
+            st.markdown("<p style='font-size:2vw;'>Options</h4>",unsafe_allow_html=True)
             # col_option.markdown("<h5 style='font-weight:bolder;'>Devices</h5>",unsafe_allow_html=True)
             devices = image_select(label="Devices",images=["miniscope v3.png","miniscope v4.png","Widefield.png","Macroscope.png"],captions=["Miniscope v3","Miniscope v4","Widefield microscope","Macroscope"],use_container_width=False,return_value="index")
             # col_option.markdown("<h5 style='font-weight:bolder;'>Animals</h5>", unsafe_allow_html=True)
@@ -181,7 +181,7 @@ def page_one():
                 st.session_state.index_current = 0
             if devices==0 and animals==0 and types==0:
                 st.markdown(
-                    f"<h4 style='text-align: center;'>Dataset info</h4><h5>Device:&nbsp&nbsp{devices_text}</h5><h5>Animal:&nbsp&nbsp{animals_text}</h5><h5>Type:&nbsp&nbsp{types_text}</h5><h5>Acqusition:&nbsp&nbsp</h5><h5>No:&nbsp&nbsp{st.session_state.index_current + 1}</h5>"
+                    f"<p style='text-align: center;font-size:2vw;'>Dataset info</p><p style='font-size:1.4vw;'>Device:&nbsp&nbsp{devices_text}</p><p style='font-size:1.4vw;'>Animal:&nbsp&nbsp{animals_text}</p><p style='font-size:1.4vw;'>Type:&nbsp&nbsp{types_text}</p><p style='font-size:1.4vw;'>Acqusition:&nbsp&nbsp</p><p style='font-size:1.4vw;'>No:&nbsp&nbsp{st.session_state.index_current + 1}</p>"
                     , unsafe_allow_html=True)
                 st.session_state.index = image_select(label="",images=["input1.gif","input2.gif","input3.gif"],use_container_width=False,return_value="index")
                 if st.session_state.index != st.session_state.index_current:
@@ -197,7 +197,7 @@ def page_one():
         st.markdown("\n")
         st.markdown("\n")
         st.markdown("\n")
-        st.markdown("##### Contact: xxxxxxxxxxxx, bioRxiv, 2023.")
+        st.markdown("<p style='font-size:1.4vw;'> Contact: xxxxxxxxxxxx, bioRxiv, 2023.</p>",unsafe_allow_html=True)
 def page_two():
     # 显示网页名称
     st.set_page_config(layout="wide", page_title="Deep Wonder")
@@ -207,11 +207,12 @@ def page_two():
         LOGO = Image.open("LOGO-new.png")
         col2.image(LOGO, use_column_width=True)
         # col2.markdown(f"<div class='center'><img src='{LOGO}'></div>",unsafe_allow_html=True)
-        col2.markdown("<h2 style='text-align: center;'>DeepDefinite</h2>", unsafe_allow_html=True)
-        col4.markdown("<h2 style='text-align: center;'>Introduction</h2>", unsafe_allow_html=True)
+        col2.markdown("<p style='text-align: center;font-size:3vw;'>DeepDefinite</p>", unsafe_allow_html=True)
+        col4.markdown("<p style='text-align: center;font-size:3vw;'>Introduction</p>", unsafe_allow_html=True)
         col4.markdown(
-            "<h5>DeepDefinite, a Deep Learning-based Widefield Neuron Finder with Self-supervi-<br>sion, is a pioneering tool for eliminating fluctuating background in one-photon<br>calcium imaging via self-supervised learning. This website offers the facility to<br>upload your captured one-photon images for swift online processing or to peruse<br>our preloaded demo datasets. Furthermore, DeepDefinite can be conveniently<br>downloaded as a Fiji plugin, thereby circumventing the need for a Python environ-<br>ment, or the complete software can be operated directly from our GitHub reposito-<br>ry: https://github.com/songxf1011/SSFA.</h5>",
+            "<p style='font-size:1.4vw;'>DeepDefinite, a Deep Learning-based Widefield Neuron Finder with Self-supervi-<br>sion, is a pioneering tool for eliminating fluctuating background in one-photon<br>calcium imaging via self-supervised learning. This website offers the facility to<br>upload your captured one-photon images for swift online processing or to peruse<br>our preloaded demo datasets. Furthermore, DeepDefinite can be conveniently<br>downloaded as a Fiji plugin, thereby circumventing the need for a Python environ-<br>ment, or the complete software can be operated directly from our GitHub reposito-<br>ry: https://github.com/songxf1011/SSFA.</p>",
             unsafe_allow_html=True)
+
     st.markdown("\n")
     st.markdown("\n")
     if st.button("Try another one"):
@@ -221,7 +222,7 @@ def page_two():
         # st.markdown("## Process & Result")
         with st.container():
             col_video,col_occupied1 = st.columns([3,1])
-            col_video.markdown("##### WD & DeepWonder & 2p(high NA)")
+            col_video.markdown("<p style='font-size:1.4vw;'>WD & DeepWonder & 2p(high NA)</p>",unsafe_allow_html=True)
             # col_input, col_network_processed, col_2p_ground_truth = st.columns([1, 1, 1])
             col_video.video(open(f"video{st.session_state.index+1}.mp4","rb").read())
             # download_gif(f"input{index+1}.gif", col_input, "input")
@@ -231,9 +232,9 @@ def page_two():
             image_seg = Image.open(f"patch_seg{st.session_state.index+1}.tiff")
             image_sig = render_svg(read_svg(f"patch_sig{st.session_state.index+1}.svg"))
             col_seg, col_sig, col_occupied2 = st.columns([1, 1, 2])
-            col_seg.markdown("##### Segmentation Spatial Mask")
+            col_seg.markdown("<p style='font-size:1.4vw;'>Segmentation Spatial Mask</p>",unsafe_allow_html=True)
             col_seg.image(image_seg, use_column_width=True)
-            col_sig.markdown("##### Segmentation Temporal Mask")
+            col_sig.markdown("<p style='font-size:1.4vw;'>Segmentation Temporal Mask</p>",unsafe_allow_html=True)
             col_sig.markdown(image_sig, unsafe_allow_html=True)
     else:
         data = tifread(st.session_state.my_upload)
@@ -247,11 +248,11 @@ def page_two():
     st.markdown("\n")
     st.markdown("\n")
     st.markdown("\n")
-    st.markdown("##### If you like the results, go to the documentation or github to learn how to install DeepDefinite.")
+    st.markdown("<p style='font-size:1.4vw;'>If you like the results, go to the documentation or github to learn how to install DeepDefinite.</p>",unsafe_allow_html=True)
     st.markdown("\n")
     st.markdown("\n")
     st.markdown("\n")
-    st.markdown("##### Contact: xxxxxxxxxxxx, bioRxiv, 2023.")
+    st.markdown("<p style='font-size:1.4vw;'>Contact: xxxxxxxxxxxx, bioRxiv, 2023.</p>",unsafe_allow_html=True)
 
 if 'page' not in st.session_state:
     st.session_state.page = "one"
