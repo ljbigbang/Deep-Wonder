@@ -32,6 +32,13 @@ def joint_img(path1,path2,path3):
         img2_array = exposure.rescale_intensity(img2_array, in_range=(np.min(img2_array), np.max(img2_array)), out_range='uint16')
         img3_array = exposure.rescale_intensity(img3_array, in_range=(np.min(img3_array), np.max(img3_array)), out_range='uint16')
         new_array = np.concatenate([img1_array,img2_array,img3_array],axis=1)
+        # new_image = Image.new("I;16",(img1.size[0]*3,img1.size[1]))
+        # loc1,loc2,loc3 = (0,0),(img1.size[0],0),(img1.size[0]*2,0)
+        # new_image.paste(img1,loc1)
+        # new_image.paste(img2,loc2)
+        # new_image.paste(img3,loc3)
+        # print(new_image)
+        # images.append(np.array(new_image))
         images.append(new_array)
     return np.array(images)
 # 接收数组形式存储的图片数据并转换为gif动图
@@ -100,7 +107,7 @@ def page_one():
     st.set_page_config(layout="wide", page_title="Deep Wonder")
     # 网页LOGO与标题
     with st.container():
-        col1, col2, col3, col4 = st.columns([1,2,1,5])
+        col1, col2, col3, col4 = st.columns([1,2,1,5.5])
         LOGO = Image.open("LOGO-new.png")
         st.markdown("""
         <style>
@@ -111,16 +118,19 @@ def page_one():
             }
         </style>
         """,unsafe_allow_html=True)
-        col2.image(LOGO, width=280)
+        col2.image(LOGO, use_column_width=True)
+        # col2.markdown(f"<div class='center'><img src='{LOGO}'></div>",unsafe_allow_html=True)
         col2.markdown("<h2 style='text-align: center;'>DeepDefinite</h2>",unsafe_allow_html=True)
         col4.markdown("<h2 style='text-align: center;'>Introduction</h2>",unsafe_allow_html=True)
-        col4.markdown("<p style='font-size: 20px;'>DeepDefinite, a Deep Learning-based Widefield Neuron Finder with Self-supervi-<br>sion, is a pioneering tool for eliminating fluctuating background in one-photon<br>calcium imaging via self-supervised learning. This website offers the facility to<br>upload your captured one-photon images for swift online processing or to peruse<br>our preloaded demo datasets. Furthermore, DeepDefinite can be conveniently<br>downloaded as a Fiji plugin, thereby circumventing the need for a Python environ-<br>ment, or the complete software can be operated directly from our GitHub reposito-<br>ry: https://github.com/songxf1011/SSFA.</p>",unsafe_allow_html=True)
+        col4.markdown("<h5>DeepDefinite, a Deep Learning-based Widefield Neuron Finder with Self-supervi-<br>sion, is a pioneering tool for eliminating fluctuating background in one-photon<br>calcium imaging via self-supervised learning. This website offers the facility to<br>upload your captured one-photon images for swift online processing or to peruse<br>our preloaded demo datasets. Furthermore, DeepDefinite can be conveniently<br>downloaded as a Fiji plugin, thereby circumventing the need for a Python environ-<br>ment, or the complete software can be operated directly from our GitHub reposito-<br>ry: https://github.com/songxf1011/SSFA.</h5>",unsafe_allow_html=True)
     st.markdown("\n")
     st.markdown("\n")
     # 网页视频与上传文件
     with st.container():
         col5, col6 = st.columns([1,1])
+        # col5.markdown("<h2 style='text-align: center;'>Our Video</h2>",unsafe_allow_html=True)
         col5.video("https://www.youtube.com/watch?v=OMkEVX23BdM")
+        # col6.markdown("<h2 style='text-align: center;'>Upload Data</h2>",unsafe_allow_html=True)
         st.session_state.my_upload = col6.file_uploader("Upload a file only tiff",type=["tiff"])
         if st.session_state.my_upload is not None:
             data = tifread(st.session_state.my_upload)
@@ -132,7 +142,7 @@ def page_one():
                 pixel_size = col6_parameter.text_input("Pixel size:")
                 neuron_diameter = col6_parameter.text_input("Neuron diameter in pixel:")
                 frame_rate = col6_parameter.text_input("Frame rate:")
-                col6_data.image(my_data,width=200)
+                col6_data.image(my_data,use_column_width=True)
                 if col6_data.button("Submit yes?"):
                     st.session_state.page = "two"
                     st.experimental_rerun()
@@ -193,13 +203,14 @@ def page_two():
     st.set_page_config(layout="wide", page_title="Deep Wonder")
     # 网页LOGO与标题
     with st.container():
-        col1, col2, col3, col4 = st.columns([1, 2, 1, 5])
+        col1, col2, col3, col4 = st.columns([1, 2, 1, 5.5])
         LOGO = Image.open("LOGO-new.png")
-        col2.image(LOGO, width=280)
+        col2.image(LOGO, use_column_width=True)
+        # col2.markdown(f"<div class='center'><img src='{LOGO}'></div>",unsafe_allow_html=True)
         col2.markdown("<h2 style='text-align: center;'>DeepDefinite</h2>", unsafe_allow_html=True)
         col4.markdown("<h2 style='text-align: center;'>Introduction</h2>", unsafe_allow_html=True)
         col4.markdown(
-            "<p style='font-size: 20px;'>DeepDefinite, a Deep Learning-based Widefield Neuron Finder with Self-supervi-<br>sion, is a pioneering tool for eliminating fluctuating background in one-photon<br>calcium imaging via self-supervised learning. This website offers the facility to<br>upload your captured one-photon images for swift online processing or to peruse<br>our preloaded demo datasets. Furthermore, DeepDefinite can be conveniently<br>downloaded as a Fiji plugin, thereby circumventing the need for a Python environ-<br>ment, or the complete software can be operated directly from our GitHub reposito-<br>ry: https://github.com/songxf1011/SSFA.</p>",
+            "<h5>DeepDefinite, a Deep Learning-based Widefield Neuron Finder with Self-supervi-<br>sion, is a pioneering tool for eliminating fluctuating background in one-photon<br>calcium imaging via self-supervised learning. This website offers the facility to<br>upload your captured one-photon images for swift online processing or to peruse<br>our preloaded demo datasets. Furthermore, DeepDefinite can be conveniently<br>downloaded as a Fiji plugin, thereby circumventing the need for a Python environ-<br>ment, or the complete software can be operated directly from our GitHub reposito-<br>ry: https://github.com/songxf1011/SSFA.</h5>",
             unsafe_allow_html=True)
     st.markdown("\n")
     st.markdown("\n")
@@ -221,14 +232,18 @@ def page_two():
             image_sig = render_svg(read_svg(f"patch_sig{st.session_state.index+1}.svg"))
             col_seg, col_sig, col_occupied2 = st.columns([1, 1, 2])
             col_seg.markdown("##### Segmentation Spatial Mask")
-            col_seg.image(image_seg, width=300)
+            col_seg.image(image_seg, use_column_width=True)
             col_sig.markdown("##### Segmentation Temporal Mask")
             col_sig.markdown(image_sig, unsafe_allow_html=True)
     else:
         data = tifread(st.session_state.my_upload)
+        # gif_path = gif_create(data)
+        # gif_create(data)
         video_create(data, "my_data")
         col_my_data1, col_my_data2 = st.columns([1, 1])
         col_my_data1.video(open("my_data.mp4", "rb").read())
+        # index = gif_show(gif_path)
+        # download_gif(gif_path,st, "input")
     st.markdown("\n")
     st.markdown("\n")
     st.markdown("\n")
