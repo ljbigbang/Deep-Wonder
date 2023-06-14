@@ -95,7 +95,7 @@ def render_svg(svg):
     html = (
         r"""
         <div align="center">
-        <img src="data:image/svg+xml;base64,%s" alt="SVG Image" style="width:18vw; float:left;"/>
+        <img src="data:image/svg+xml;base64,%s" alt="SVG Image" style="width:24vw; float:left;"/>
         </div>
         """
         % b64
