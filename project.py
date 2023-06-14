@@ -122,7 +122,7 @@ def page_one():
         # col2.markdown(f"<div class='center'><img src='{LOGO}'></div>",unsafe_allow_html=True)
         col2.markdown("<h2 style='text-align: center;'>DeepDefinite</h2>",unsafe_allow_html=True)
         col4.markdown("<h2 style='text-align: center;'>Introduction</h2>",unsafe_allow_html=True)
-        col4.markdown("<h5>DeepDefinite, a Deep Learning-based Widefield Neuron Finder with Self-supervi-<br>sion, is a pioneering tool for eliminating fluctuating background in one-photon<br>calcium imaging via self-supervised learning. This website offers the facility to<br>upload your captured one-photon images for swift online processing or to peruse<br>our preloaded demo datasets. Furthermore, DeepDefinite can be conveniently<br>downloaded as a Fiji plugin, thereby circumventing the need for a Python environ-<br>ment, or the complete software can be operated directly from our GitHub reposito-<br>ry: https://github.com/songxf1011/SSFA.</h5>",unsafe_allow_html=True)
+        col4.markdown("<p style='font-size: 20em;'>DeepDefinite, a Deep Learning-based Widefield Neuron Finder with Self-supervi-<br>sion, is a pioneering tool for eliminating fluctuating background in one-photon<br>calcium imaging via self-supervised learning. This website offers the facility to<br>upload your captured one-photon images for swift online processing or to peruse<br>our preloaded demo datasets. Furthermore, DeepDefinite can be conveniently<br>downloaded as a Fiji plugin, thereby circumventing the need for a Python environ-<br>ment, or the complete software can be operated directly from our GitHub reposito-<br>ry: https://github.com/songxf1011/SSFA.</p>",unsafe_allow_html=True)
     st.markdown("\n")
     st.markdown("\n")
     # 网页视频与上传文件
